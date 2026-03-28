@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { supabaseAdmin } from '@/lib/supabase';
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
-
 export async function POST(req: NextRequest) {
-  const { items, total, customer } = await req.json();
 
+  if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+    return NextResponse.json({ error: 'Payments not yet enabled' }, { status: 503 });
+  }
+  const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  });
+
+  const { items, total, customer } = await req.json();
+  
   try {
     // 1. Create Razorpay order
     const rzpOrder = await razorpay.orders.create({
