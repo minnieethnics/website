@@ -3,7 +3,13 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export function HeroSection() {
+export function HeroSection({
+  heroVideoUrl,
+  heroVideoPosterUrl,
+}: {
+  heroVideoUrl?: string;
+  heroVideoPosterUrl?: string;
+}) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -13,13 +19,26 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-      {/* Background — warm gradient standing in for video */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, #EDE0CC 0%, #D9C9B0 55%, #C9B598 100%)',
-        }}
-      />
+      {heroVideoUrl ? (
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={heroVideoPosterUrl || undefined}
+          src={heroVideoUrl}
+        >
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'linear-gradient(135deg, #EDE0CC 0%, #D9C9B0 55%, #C9B598 100%)',
+          }}
+        />
+      )}
 
       {/*
         VIDEO: When you have a stock video of children in ethnic wear / artisan making clothes,
@@ -37,15 +56,16 @@ export function HeroSection() {
       {/* Dark veil over video/bg so text is readable */}
       <div className="absolute inset-0 z-[1]" style={{ background: 'rgba(61,53,48,0.22)' }} />
 
-      {/* Video play indicator (remove once real video is added) */}
-      <div className="absolute inset-0 z-[2] flex flex-col items-center justify-center gap-3 opacity-30 pointer-events-none select-none">
-        <div className="w-16 h-16 rounded-full border border-gold/60 flex items-center justify-center">
-          <div className="ml-1 border-l-[16px] border-l-gold/70 border-y-[10px] border-y-transparent" />
+      {!heroVideoUrl && (
+        <div className="absolute inset-0 z-[2] flex flex-col items-center justify-center gap-3 opacity-30 pointer-events-none select-none">
+          <div className="w-16 h-16 rounded-full border border-gold/60 flex items-center justify-center">
+            <div className="ml-1 border-l-[16px] border-l-gold/70 border-y-[10px] border-y-transparent" />
+          </div>
+          <p className="font-display italic text-ivory/60 text-sm tracking-wider">
+            upload hero video in admin media
+          </p>
         </div>
-        <p className="font-display italic text-ivory/60 text-sm tracking-wider">
-          hero video · replace with your own
-        </p>
-      </div>
+      )}
 
       {/* Content */}
       <div className="relative z-[5] px-8 md:px-16 max-w-2xl">

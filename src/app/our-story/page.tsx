@@ -1,11 +1,29 @@
+import Image from 'next/image';
 import { Footer } from '@/components/layout/Footer';
+import { supabase } from '@/lib/supabase';
 
 export const metadata = {
   title: 'Our Story — Minnie Ethnics',
   description: 'How Minnie Ethnics was born, and why we make what we make.',
 };
 
-export default function OurStoryPage() {
+async function getFounderImageUrl() {
+  try {
+    const { data } = await supabase
+      .from('site_settings')
+      .select('founder_image_url')
+      .eq('id', 1)
+      .single();
+
+    return data?.founder_image_url || '/images/founder.jpg';
+  } catch {
+    return '/images/founder.jpg';
+  }
+}
+
+export default async function OurStoryPage() {
+  const founderImageUrl = await getFounderImageUrl();
+
   return (
     <main>
       <section className="relative z-[5] bg-ivory">
@@ -19,15 +37,8 @@ export default function OurStoryPage() {
         </div>
 
         {/* Founder photo placeholder */}
-        <div className="relative w-full max-w-2xl mx-auto aspect-[4/3] bg-ivory2 flex items-center justify-center mb-16">
-          {/*
-            Replace with:
-            <Image src="/images/founder.jpg" alt="Founder" fill className="object-cover" />
-          */}
-          <div className="text-center space-y-2">
-            <p className="font-display italic text-xl text-muted/50">[ your founder photo here ]</p>
-            <p className="text-xs text-faint">Add your photo to /public/images/founder.jpg</p>
-          </div>
+        <div className="relative w-full max-w-2xl mx-auto aspect-[4/3] bg-ivory2 flex items-center justify-center mb-16 rounded-2xl overflow-hidden border border-charcoal/10 shadow-sm">
+          <Image src={founderImageUrl} alt="Founder" fill className="object-cover" />
         </div>
 
         {/* Story text */}

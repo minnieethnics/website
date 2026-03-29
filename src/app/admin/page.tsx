@@ -63,6 +63,7 @@ export default async function AdminDashboard() {
             {[
               { href: '/admin/products/new', label: '+ Add new product' },
               { href: '/admin/banners',      label: 'Edit hero banner' },
+              { href: '/admin/media',        label: 'Upload story/hero media' },
               { href: '/admin/themes',       label: 'Switch festival theme' },
               { href: '/admin/discounts',    label: 'Toggle discount banner' },
               { href: '/admin/orders',       label: 'View all orders' },

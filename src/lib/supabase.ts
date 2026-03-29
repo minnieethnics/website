@@ -68,5 +68,8 @@ export type SiteSettings = {
   discount_banner_text: string;
   discount_code: string;
   discount_percent: number;
+  founder_image_url: string;
+  hero_video_url: string;
+  hero_video_poster_url: string;
   updated_at: string;
 };

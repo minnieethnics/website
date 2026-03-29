@@ -5,6 +5,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { CartDrawer } from '@/components/shop/CartDrawer';
 
 export const metadata: Metadata = {
+  manifest: '/manifest.json',
   title: 'Minnie Ethnics — Because Traditions Start Young',
   description:
     'Designer ethnic wear for children aged 0–5. Hand-embroidered, elegantly crafted, affordable. Based in Kolkata.',

@@ -7,6 +7,12 @@ import { Footer } from '@/components/layout/Footer';
 import { supabase } from '@/lib/supabase';
 import type { Product } from '@/lib/supabase';
 
+type SiteMedia = {
+  founder_image_url: string;
+  hero_video_url: string;
+  hero_video_poster_url: string;
+};
+
 async function getProducts(): Promise<Product[]> {
   try {
     const { data } = await supabase
@@ -22,15 +28,40 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
+async function getSiteMedia(): Promise<SiteMedia> {
+  try {
+    const { data } = await supabase
+      .from('site_settings')
+      .select('founder_image_url,hero_video_url,hero_video_poster_url')
+      .eq('id', 1)
+      .single();
+
+    return {
+      founder_image_url: data?.founder_image_url ?? '',
+      hero_video_url: data?.hero_video_url ?? '',
+      hero_video_poster_url: data?.hero_video_poster_url ?? '',
+    };
+  } catch {
+    return {
+      founder_image_url: '',
+      hero_video_url: '',
+      hero_video_poster_url: '',
+    };
+  }
+}
+
 export default async function HomePage() {
-  const products = await getProducts();
+  const [products, media] = await Promise.all([getProducts(), getSiteMedia()]);
 
   return (
     <main>
-      <HeroSection />
+      <HeroSection
+        heroVideoUrl={media.hero_video_url}
+        heroVideoPosterUrl={media.hero_video_poster_url}
+      />
       <MarqueeBar />
       <ProductsSection products={products} />
-      <OurStoryStrip />
+      <OurStoryStrip founderImageUrl={media.founder_image_url} />
       <ValuesSection />
       <Footer />
     </main>

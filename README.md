@@ -30,7 +30,8 @@ The site works without Supabase or Razorpay for browsing (uses placeholder data)
 3. Wait ~2 minutes for project to spin up
 4. Go to **SQL Editor** → **New Query**
 5. Run migration SQL in Supabase SQL editor:
-  - `supabase/migrations/20260328_001_initial_schema.sql` (recommended)
+  - `supabase/migrations/20260328_001_initial_schema.sql`
+  - `supabase/migrations/20260329_002_site_media.sql`
   - or copy `supabase-schema.sql` as a one-shot bootstrap
 6. Go to **Project Settings → API**
 7. Copy:
@@ -99,6 +100,7 @@ OR use the Vercel dashboard:
 2. Click Products → + Add Product
 3. Upload photos (stored in Supabase bucket `product-images`), fill in name/price/age/gender
 4. Click Publish — it appears on the site immediately
+5. For founder image + hero video: open Admin → Story & Hero Media
 
 ---
 
@@ -120,6 +122,7 @@ src/
       banners/            ← Edit hero banner
       themes/             ← Festival themes
       discounts/          ← Discount banner
+      media/              ← Founder image + hero video uploads
     api/
       create-order/       ← Creates Razorpay order
       verify-payment/     ← Verifies payment

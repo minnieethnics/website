@@ -14,6 +14,9 @@ type LiveSettings = {
   discount_banner_text: string;
   discount_code: string;
   discount_percent: number;
+  founder_image_url: string;
+  hero_video_url: string;
+  hero_video_poster_url: string;
   // derived from active_theme
   accent: string;
   bg: string;
@@ -29,6 +32,9 @@ const DEFAULTS: LiveSettings = {
   discount_banner_text: '',
   discount_code: '',
   discount_percent: 0,
+  founder_image_url: '',
+  hero_video_url: '',
+  hero_video_poster_url: '',
   accent: '#C5A055',
   bg: '#F7F0E6',
 };

@@ -8,6 +8,7 @@ const NAV = [
   { href: '/admin/products',  label: 'Products',  icon: '◻' },
   { href: '/admin/orders',    label: 'Orders',    icon: '⊡' },
   { href: '/admin/banners',   label: 'Banners',   icon: '▤' },
+  { href: '/admin/media',     label: 'Story & Hero Media', icon: '▣' },
   { href: '/admin/themes',    label: 'Festival Themes', icon: '◎' },
   { href: '/admin/discounts', label: 'Discounts', icon: '◇' },
 ];
@@ -15,8 +16,8 @@ const NAV = [
 export function AdminSidebar() {
   const path = usePathname();
 
-  const logout = () => {
-    sessionStorage.removeItem('me-admin');
+  const logout = async () => {
+    await fetch('/api/admin-auth', { method: 'DELETE' });
     window.location.href = '/admin';
   };
 

@@ -1,6 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
-export function OurStoryStrip() {
+export function OurStoryStrip({ founderImageUrl }: { founderImageUrl?: string }) {
+  const imageSrc = founderImageUrl || '/images/founder.jpg';
+
   return (
     <section className="relative z-[5] grid grid-cols-1 md:grid-cols-2 min-h-[480px]">
       {/* Visual side — threads SVG + founder photo placeholder */}
@@ -33,19 +36,13 @@ export function OurStoryStrip() {
           <circle cx="190" cy="170" r="2" fill="#7F77DD" opacity="0.35"/>
         </svg>
 
-        {/* Founder photo — replace the div below with <Image> when you have the photo */}
+        {/* Founder photo */}
         <div className="relative z-10 flex flex-col items-center gap-3">
           <div
-            className="w-40 h-52 rounded-full overflow-hidden border border-gold/20 flex items-center justify-center"
+            className="relative w-44 h-56 rounded-2xl overflow-hidden border border-gold/20 shadow-sm flex items-center justify-center"
             style={{ background: 'rgba(212,184,150,0.25)' }}
           >
-            {/*
-              When you have your founder photo, replace this placeholder:
-              <Image src="/images/founder.jpg" alt="Founder" fill className="object-cover" />
-            */}
-            <span className="font-display italic text-sm text-charcoal/40 text-center px-4">
-              your photo<br/>here
-            </span>
+            <Image src={imageSrc} alt="Founder" fill className="object-cover" />
           </div>
         </div>
       </div>

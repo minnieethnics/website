@@ -77,6 +77,9 @@ create table if not exists public.site_settings (
   discount_banner_text    text        not null default 'Grand Launch Sale - Flat 20% off!',
   discount_code           text        not null default 'MINNIE20',
   discount_percent        integer     not null default 20,
+  founder_image_url       text        not null default '',
+  hero_video_url          text        not null default '',
+  hero_video_poster_url   text        not null default '',
   updated_at              timestamptz not null default now()
 );
 
@@ -149,3 +152,12 @@ drop policy if exists "Public read product images" on storage.objects;
 create policy "Public read product images"
   on storage.objects for select
   using (bucket_id = 'product-images');
+
+insert into storage.buckets (id, name, public)
+values ('site-media', 'site-media', true)
+on conflict (id) do nothing;
+
+drop policy if exists "Public read site media" on storage.objects;
+create policy "Public read site media"
+  on storage.objects for select
+  using (bucket_id = 'site-media');
