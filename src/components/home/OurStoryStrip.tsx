@@ -5,9 +5,11 @@ export function OurStoryStrip({ founderImageUrl }: { founderImageUrl?: string })
   const imageSrc = founderImageUrl || '/images/founder.jpg';
 
   return (
-    <section className="relative z-[5] grid grid-cols-1 md:grid-cols-2 min-h-[480px]">
-      {/* Visual side — threads SVG + founder photo placeholder */}
-      <div className="relative bg-ivory2 flex items-center justify-center overflow-hidden min-h-[320px] md:min-h-0">
+    <section className="relative z-[5] grid grid-cols-1 md:grid-cols-2 min-h-[560px]">
+
+      {/* Visual side */}
+      <div className="relative bg-ivory2 overflow-hidden min-h-[420px] md:min-h-0">
+
         {/* Animated thread lines */}
         <svg
           className="absolute inset-0 w-full h-full"
@@ -36,13 +38,19 @@ export function OurStoryStrip({ founderImageUrl }: { founderImageUrl?: string })
           <circle cx="190" cy="170" r="2" fill="#7F77DD" opacity="0.35"/>
         </svg>
 
-        {/* Founder photo */}
-        <div className="relative z-10 flex flex-col items-center gap-3">
+        {/* Founder photo — fills the panel with tasteful padding */}
+        <div className="absolute inset-0 flex items-center justify-center p-10 md:p-14">
           <div
-            className="relative w-44 h-56 rounded-2xl overflow-hidden border border-gold/20 shadow-sm flex items-center justify-center"
+            className="relative w-full h-full rounded-2xl overflow-hidden border border-gold/20 shadow-sm"
             style={{ background: 'rgba(212,184,150,0.25)' }}
           >
-            <Image src={imageSrc} alt="Founder" fill className="object-cover" />
+            <Image
+              src={imageSrc}
+              alt="Founder"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </div>
